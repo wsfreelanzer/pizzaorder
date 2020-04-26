@@ -17,14 +17,13 @@
   <link rel="stylesheet" href="assets/fonts/font-awesome/css/all.min.css">
   <!-- Slices Style sheet -->
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="https://raw.githubusercontent.com/daneden/animate.css/master/animate.css">
-  
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
 
 </head>
 
 <body>
+
   <!-- Preloader Start -->
   <div class="ct-preloader">
     <div class="ct-preloader-inner">
@@ -398,7 +397,7 @@
             </ul>
           </div>          
 
-          <ul class="top-header-nav header-cta animated slideInRight">
+          <ul class="top-header-nav header-cta">
             <li> <a href="login.php">Login / Sign Up To Manage Your Order</a> </li>
           </ul>
 
@@ -413,7 +412,7 @@
         <!-- Menu -->
         <ul class="navbar-nav">
           <li class="menu-item">
-            <a data-pjax href="index.php">Home</a>
+            <a href="index.php">Home</a>
           </li>
           <li class="menu-item">
             <a href="menu.php">Menu</a>
@@ -454,5 +453,3 @@
 
   </header>
   <!-- Header End -->
-
-  <div id="pjax-container" class="animated fadeIn delay-1s">

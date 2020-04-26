@@ -1,5 +1,3 @@
-</div>
-
 <!-- Footer Start -->
 <footer class="ct-footer footer-dark">
     <!-- Top Footer -->
@@ -31,10 +29,8 @@
   </footer>
   <!-- Footer End -->
 
-
   <!-- Vendor Scripts -->
   <script src="assets/js/plugins/jquery-3.4.1.min.js"></script>
-  <script src='assets/js/plugins/pjax.js' type="text/javascript"></script>
   <script src="assets/js/plugins/popper.min.js"></script>
   <script src="assets/js/plugins/waypoint.js"></script>
   <script src="assets/js/plugins/bootstrap.min.js"></script>
@@ -45,26 +41,9 @@
   <script src="assets/js/plugins/jquery.countdown.min.js"></script>
   <script src="assets/js/plugins/isotope.pkgd.min.js"></script>
   <script src="assets/js/plugins/slick.min.js"></script>
-  
+
   <!-- Slices Scripts -->
   <script src="assets/js/main.js"></script>
-  <script>
-    var TRANSITION_DURATION = 600;
-   var pjax = new Pjax({
-        selectors: [          
-          ".main-header",
-          "#pjax-container",
-          ".ct-footer",
-        ]
-      })
-
-      $(document).on('pjax:send', function() {
-        $('.ct-preloader').removeClass('hidden');
-      })
-      $(document).on('pjax:success', function() {
-        $('.ct-preloader').addClass('hidden');        
-      });   
-  </script>
 
 </body>
 </html>

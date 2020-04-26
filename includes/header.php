@@ -398,7 +398,7 @@
             </ul>
           </div>          
 
-          <ul class="top-header-nav header-cta animated slideInRight">
+          <ul class="top-header-nav header-cta">
             <li> <a href="login.php">Login / Sign Up To Manage Your Order</a> </li>
           </ul>
 
@@ -455,4 +455,4 @@
   </header>
   <!-- Header End -->
 
-  <div id="pjax-container" class="animated fadeIn delay-1s">
+  <div id="pjax-container" class="animated fadeIn">

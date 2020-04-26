@@ -51,10 +51,11 @@
   <script>
     var TRANSITION_DURATION = 600;
    var pjax = new Pjax({
-        selectors: [          
+        selectors: [    
+          "title",
+          "meta-description"      
           ".main-header",
-          "#pjax-container",
-          ".ct-footer",
+          "#pjax-container",          
         ]
       })
 

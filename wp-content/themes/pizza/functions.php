@@ -145,8 +145,35 @@ add_action( 'widgets_init', 'pizza_widgets_init' );
 function pizza_scripts() {
 	wp_enqueue_style( 'pizza-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'pizza-style', 'rtl', 'replace' );
+    
+    wp_enqueue_style( 'pizza-bootstrap', get_template_directory_uri() . '/assets/css/plugins/bootstrap.min.css',  array(), '20151215', 'all' );
+    wp_enqueue_style( 'pizza-animate', get_template_directory_uri() . '/assets/css/plugins/animate.min.css',  array(), '20151215', 'all' );
+    wp_enqueue_style( 'pizza-magnific-popup', get_template_directory_uri() . '/assets/css/plugins/magnific-popup.css',  array(), '20151215', 'all' );
+    wp_enqueue_style( 'pizza-slick', get_template_directory_uri() . '/assets/css/plugins/slick.css',  array(), '20151215', 'all' );
+    wp_enqueue_style( 'pizza-slick-theme', get_template_directory_uri() . '/assets/css/plugins/slick-theme.css',  array(), '20151215', 'all' );
+    
+    wp_enqueue_style( 'pizza-flaticon', get_template_directory_uri() . '/assets/fonts/flaticon/flaticon.css',  array(), '20151215', 'all' );
+    wp_enqueue_style( 'pizza-font-awesome', get_template_directory_uri() . '/assets/fonts/font-awesome/css/all.min.css',  array(), '20151215', 'all' );
+    wp_enqueue_style( 'pizza-main-style', get_template_directory_uri() . '/assets/css/style.css',  array(), '20151215', 'all' );
 
 	wp_enqueue_script( 'pizza-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+    
+    wp_enqueue_script( 'pizza-js-jquery341', get_template_directory_uri() . '/assets/js/plugins/jquery-3.4.1.min.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-pjax', get_template_directory_uri() . '/assets/js/plugins/pjax.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-popper', get_template_directory_uri() . '/assets/js/plugins/popper.min.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-waypoint', get_template_directory_uri() . '/assets/js/plugins/waypoint.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-bootstrap', get_template_directory_uri() . '/assets/js/plugins/bootstrap.min.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-magnific-popup', get_template_directory_uri() . '/assets/js/plugins/jquery.magnific-popup.min.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-slimScroll', get_template_directory_uri() . '/assets/js/plugins/jquery.slimScroll.min.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-imagesloaded', get_template_directory_uri() . '/assets/js/plugins/imagesloaded.min.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-steps', get_template_directory_uri() . '/assets/js/plugins/jquery.steps.min.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-countdown', get_template_directory_uri() . '/assets/js/plugins/jquery.countdown.min.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-isotope', get_template_directory_uri() . '/assets/js/plugins/isotope.pkgd.min.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-slick', get_template_directory_uri() . '/assets/js/plugins/slick.min.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-main', get_template_directory_uri() . '/assets/js/main.js', array(), _S_VERSION, true );
+    wp_enqueue_script( 'pizza-js-main-pjax', get_template_directory_uri() . '/assets/js/pjax.js', array(), _S_VERSION, true );
+    
+    
 
 	wp_enqueue_script( 'pizza-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), _S_VERSION, true );
 

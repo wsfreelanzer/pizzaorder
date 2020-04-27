@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="assets/fonts/font-awesome/css/all.min.css">
   <!-- Slices Style sheet -->
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="https://raw.githubusercontent.com/daneden/animate.css/master/animate.css">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">

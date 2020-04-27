@@ -49,11 +49,14 @@
   <!-- Slices Scripts -->
   <script src="assets/js/main.js"></script>
   <script>
+      $.ajaxSetup ({
+cache: true
+});
     var TRANSITION_DURATION = 600;
    var pjax = new Pjax({
         selectors: [    
           "title",
-          "meta-description"      
+          "meta-description",      
           ".main-header",
           "#pjax-container",          
         ]

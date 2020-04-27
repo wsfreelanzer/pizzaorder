@@ -59,3 +59,17 @@ function pizza_customize_preview_js() {
 	wp_enqueue_script( 'pizza-customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), '20151215', true );
 }
 add_action( 'customize_preview_init', 'pizza_customize_preview_js' );
+
+
+function pizza_additional_customizer_settings( $wp_customize ) {
+    $wp_customize->add_setting('footer_logo', array(
+        'type' => 'theme_mod',
+        'capability' => 'edit_theme_options',
+        'sanitize_callback' => 'absint'
+    ));
+    $wp_customize->add_control(new WP_Customize_Cropped_Image_Control($wp_customize, 'footer_logo', array(
+        'section' => 'title_tagline',
+        'label' => 'Footer Logo',       
+    )));
+}
+add_action( 'customize_register', 'pizza_additional_customizer_settings' );

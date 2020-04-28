@@ -209,3 +209,26 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+/**
+ * Register a custom menu page.
+ */
+function wpdocs_register_my_custom_menu_page(){
+    add_menu_page( 
+        __( 'Custom Menu Title', 'pizza' ),
+        'Slices Pizza',
+        'manage_options',
+        'custompage',
+        'my_custom_menu_page',
+        get_template_directory_uri().'/assets/img/pizza-menu-icon.png',
+        20
+    ); 
+}
+add_action( 'admin_menu', 'wpdocs_register_my_custom_menu_page' );
+ 
+/**
+ * Display a custom menu page
+ */
+function my_custom_menu_page(){
+    esc_html_e( 'Admin Page Test', 'pizza' );  
+}

@@ -346,7 +346,7 @@
 
   <!-- Aside (Mobile Navigation) -->
   <aside class="main-aside">
-    <a class="navbar-brand" href="index.php"> <img src="assets/img/logo.png" alt="logo"> </a>
+    <?php the_custom_logo('navbar-brand'); ?>
 
     <div class="aside-scroll">
       <ul>
@@ -387,7 +387,7 @@
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'pizza' ); ?></a>
     
     <!-- Header Start -->
-      <header class="main-header header-1 header-absolute">
+      <header class="main-header header-1 <?php echo is_home()?"header-absolute":""; ?>">
 
         <div class="top-header">
           <div class="container">
@@ -400,7 +400,7 @@
               </div>          
 
               <ul class="top-header-nav header-cta">
-                <li> <a href="login.php">Login / Sign Up To Manage Your Order</a> </li>
+                <li> <a href="login.php">Manage Your Order</a> </li>
               </ul>
 
             </div>
@@ -412,7 +412,7 @@
             <!-- Logo -->
             <?php the_custom_logo('navbar-brand'); ?>
             <!-- Menu -->
-            <ul class="navbar-nav">
+            <!--<ul class="navbar-nav">
               <li class="menu-item">
                 <a data-pjax href="index.php">Home</a>
               </li>
@@ -432,6 +432,14 @@
                 <a href="contact-us.php">Contact Us</a>
               </li>                            
             </ul>
+             -->
+              <?php 
+                $top_menu['theme_location'] = 'menu-1';
+                $top_menu['menu_id']        = 'primary-menu';
+                $top_menu['container'] = false;
+                $top_menu['menu_class'] = 'navbar-nav';                
+                wp_nav_menu($top_menu); 
+            ?>   
             <div class="header-controls">
               <ul class="header-controls-inner">            
                 <li class="cart-dropdown-wrapper cart-trigger">

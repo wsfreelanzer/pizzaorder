@@ -1,5 +1,6 @@
 <?php
 require_once('../wp-load.php');
+include 'class/size.php';
 
 /**
  * Register a custom menu page.
@@ -7,18 +8,19 @@ require_once('../wp-load.php');
 add_action('admin_menu', 'slice_pizza_pages');
 function slice_pizza_pages(){
 
-    global $wpdb;
-
+    global $wpdb, $table_name;
+    
     $charset_collate = $wpdb->get_charset_collate();    
     $table_name = $wpdb->prefix . "pizza_attributes"; 
 
     $sql = "CREATE TABLE $table_name (
-      id INT(9) NOT NULL AUTO_INCREMENT,
+      ID INT(9) NOT NULL AUTO_INCREMENT,
       `title` VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL,
       `price` DOUBLE DEFAULT NULL,
       `att_type` ENUM('size', 'dough', 'crust', 'extra') COLLATE utf8_unicode_ci NOT NULL,
-      `created` DATETIME NOT NULL,    
-      PRIMARY KEY  (id)
+      `orderby` INT NOT NULL DEFAULT '1',
+      `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,    
+      PRIMARY KEY  (ID)
     ) $charset_collate;";
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -71,6 +73,16 @@ function slice_pizza_size(){
 
     </div><!-- .wrap -->
     <?php
+
+    $PizzaSize_List = new PizzaSize_List_Table();
+    $PizzaSize_List->prepare_items();
+    ?>
+        <div class="wrap">
+            <div id="icon-users" class="icon32"></div>
+            <h2>Example List Table Page</h2>
+            <?php $PizzaSize_List->display(); ?>
+        </div>
+    <?php
 }
 
 function prefix_send_email_to_admin() {
@@ -92,26 +104,29 @@ add_action( 'admin_post_nopriv_contact_form', 'prefix_send_email_to_admin' );
 add_action( 'admin_post_contact_form', 'prefix_send_email_to_admin' );
 
 /**
- * Size
+ * Dough
  */
 function slice_pizza_dough(){
     esc_html_e( 'Manage Pizza Dough Page', 'pizza' );  
 }
 
 /**
- * Size
+ * Crust
  */
 function slice_pizza_crust(){
     esc_html_e( 'Manage Pizza Crust Page', 'pizza' );  
 }
 
 /**
- * Size
+ * Extra
  */
 function slice_pizza_extras(){
     esc_html_e( 'Manage Pizza Extras Page', 'pizza' );  
 }
 
 
+if ( ! class_exists( 'WP_List_Table' ) ) {
+    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+}
 
 ?>

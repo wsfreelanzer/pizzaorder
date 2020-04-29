@@ -184,6 +184,11 @@ function pizza_scripts() {
 add_action( 'wp_enqueue_scripts', 'pizza_scripts' );
 
 /**
+ * Implement the Admin Flash Notie feature.
+ */
+require get_template_directory() . '/inc/flash-notice.php';
+
+/**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
@@ -216,3 +221,5 @@ if ( defined( 'JETPACK__VERSION' ) ) {
  */
 
 require get_template_directory() . '/slice-pizza/register.php';
+
+

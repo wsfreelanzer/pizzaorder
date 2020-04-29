@@ -45,7 +45,8 @@ function slice_pizza_dashboard(){
  * Size
  */
 function slice_pizza_size(){
-    ?>
+    
+    ?>    
     <div class="wrap">
  
         <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -77,10 +78,11 @@ function slice_pizza_size(){
     $PizzaSize_List = new PizzaSize_List_Table();
     $PizzaSize_List->prepare_items();
     ?>
-        <div class="wrap">
-            <div id="icon-users" class="icon32"></div>
-            <h2>Example List Table Page</h2>
+        <div class="wrap">            
+            <h2>Pizza Size List</h2>
+            <form method="post">
             <?php $PizzaSize_List->display(); ?>
+            </form>
         </div>
     <?php
 }
@@ -91,17 +93,20 @@ function prefix_send_email_to_admin() {
      *
      * We can do our normal processing here
      */ 
+    
     global $wpdb;
-     $title = $_POST['title'];
-     $table_name = $wpdb->prefix . "pizza_attributes";
-     $wpdb->insert($table_name, array('title' => $title, 'att_type' => 'size') ); 
-
+    $title = $_POST['title'];
+    $table_name = $wpdb->prefix . "pizza_attributes";
+    $wpdb->insert($table_name, array('title' => $title, 'att_type' => 'size'));
+    add_flash_notice( __("Success, new pizza size succesfully added."), "success", false );
+    wp_redirect(wp_get_referer());
     // Sanitize the POST field
     // Generate email content
     // Send to appropriate email
 }
 add_action( 'admin_post_nopriv_contact_form', 'prefix_send_email_to_admin' );
 add_action( 'admin_post_contact_form', 'prefix_send_email_to_admin' );
+
 
 /**
  * Dough

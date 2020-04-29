@@ -219,7 +219,6 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 /**
  * Pizza Custom Plugin
  */
-
 require get_template_directory() . '/slice-pizza/register.php';
 
 

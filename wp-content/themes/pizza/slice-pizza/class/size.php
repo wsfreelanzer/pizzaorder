@@ -83,8 +83,11 @@ class PizzaSize_List_Table extends WP_List_Table
 	public static function record_count() {
 		global $wpdb, $table_name;
 
-		$sql = "SELECT COUNT(*) FROM $table_name";
-
+		if(!isset($_REQUEST['s']))
+			$sql = "SELECT COUNT(*) FROM $table_name WHERE att_type='size'";
+		else
+			$sql = "SELECT COUNT(*) FROM $table_name WHERE title LIKE '%".$_REQUEST['s']."%' AND att_type='size'";
+	
 		return $wpdb->get_var( $sql );
 	}
 
@@ -118,6 +121,11 @@ class PizzaSize_List_Table extends WP_List_Table
         global $wpdb, $table_name;
 
 		$sql = "SELECT * FROM $table_name";
+
+		if(!isset($_REQUEST['s']))
+			$sql .= " WHERE att_type='size'";
+		else
+			$sql .= " WHERE title LIKE '%".$_REQUEST['s']."%' AND att_type='size'";
 
 		if ( ! empty( $_REQUEST['orderby'] ) ) {
 			$sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
@@ -228,14 +236,14 @@ class PizzaSize_List_Table extends WP_List_Table
 	 */
 	function column_name( $item ) {
 			
-		$edit_nonce = wp_create_nonce( 'sp_size_edit' );
+		$edit_nonce = wp_create_nonce( 'pizza_edit_size' );
 		$delete_nonce = wp_create_nonce( 'pizza_single_delete_size' );
 
 		$title = '<strong>' . $item['title'] . '</strong>';
 
 		$actions = [
 			'edit' => sprintf( '<a href="?page=%s&action=%s&id=%s&_wpnonce=%s">Edit</a>', esc_attr( $_REQUEST['page'] ), 'edit', absint( $item['ID'] ), $edit_nonce ),
-			'delete' => sprintf( '<a href="?page=%s&action=%s&id=%s&_wpnonce=%s">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['ID'] ), $delete_nonce )
+			'delete' => sprintf( '<a href="?page=%s&action=%s&id=%s&_wpnonce=%s" onclick="return confirm(\'Do you want to delete this size?\')">Delete</a>', esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['ID'] ), $delete_nonce )
 		];
 
 		return $title . $this->row_actions( $actions );
@@ -254,38 +262,8 @@ class PizzaSize_List_Table extends WP_List_Table
 		return $actions;
 	}
 
-	public function process_bulk_action() {
-		
-		//Detect when a bulk action is being triggered...
-		if ( 'delete' === $this->current_action() ) {
-			die();
-			// In our file that handles the request, verify the nonce.
-			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
-
-			if ( ! wp_verify_nonce( $nonce, 'sp_delete_size' ) ) {
-				die( 'Go get a life script kiddies' );
-			}
-			else {
-				self::delete_size( absint( $_GET['size'] ) );
-			}
-
-		}
-
-		// If the delete bulk action is triggered
-		if ( ( isset( $_POST['action'] ) && $_POST['action'] == 'bulk-delete' ) || ( isset( $_POST['action2'] ) && $_POST['action2'] == 'bulk-delete' )) {
-
-			$delete_ids = esc_sql( $_POST['bulk-delete'] );
-
-			// loop over the array of record IDs and delete them
-			if($delete_ids)
-			{
-				foreach ( $delete_ids as $id ) {
-					self::delete_size( $id );
-				}				
-			}			
-		}
-
-		return;
+	public function process_bulk_action() {		
+		return true;
 	}
 }
 
@@ -303,32 +281,37 @@ if($_REQUEST['action'] || $_REQUEST['action2'])
 
 		// loop over the array of record IDs and delete them
 		if($delete_ids)
-		{
+		{			
 			foreach ( $delete_ids as $id ) {							
 				$wpdb->delete(
 					"$table_name",
 					[ 'ID' => $id ],
 					[ '%d' ]
 				);				
-			}				    					
+			}						    					
 		}
 		add_flash_notice( __("Deleted, pizza size succesfully deleted."), "warning", false );
-		wp_redirect(wp_get_referer());					
+		wp_redirect(wp_get_referer());
+		exit;					
 	}
 	else if ( wp_verify_nonce( $nonce, 'pizza_single_delete_size' ) ) {
-		global $wpdb, $table_name;
-		$table_name = $wpdb->prefix . "pizza_attributes"; 
-		
-		die();
-		$delete_id = esc_attr( $_REQUEST['id'] );
-		$wpdb->delete(
-			"$table_name",
-			[ 'ID' => $delete_id ],
-			[ '%d' ]
-		);				
-		add_flash_notice( __("Deleted, pizza size succesfully deleted."), "warning", false );
-		wp_redirect(wp_get_referer());
-	}	
+		if(isset($_REQUEST['action']) and $_REQUEST['action']=="delete" and isset($_REQUEST['id']))
+		{			
+			global $wpdb, $table_name;
+			$table_name = $wpdb->prefix . "pizza_attributes"; 
+							
+			$delete_id = esc_attr( $_REQUEST['id'] );
+			$wpdb->delete(
+				"$table_name",
+				[ 'ID' => $delete_id ],
+				[ '%d' ]
+			);				
+
+			add_flash_notice( __("Deleted, pizza size succesfully deleted."), "warning", true );			
+			wp_redirect(wp_get_referer());
+			exit;
+		}		
+	}
 }
 
 ?>

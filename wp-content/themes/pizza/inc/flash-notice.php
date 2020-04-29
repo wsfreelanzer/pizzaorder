@@ -36,7 +36,7 @@ function display_flash_notices() {
      
     // Iterate through our notices to be displayed and print them.
     foreach ( $notices as $notice ) {
-        printf('<div class="notice notice-%1$s %2$s"><p>%3$s</p></div>',
+        printf('<div class="notice notice-%1$s %2$s"><h4>%3$s</h4></div>',
             $notice['type'],
             $notice['dismissible'],
             $notice['notice']

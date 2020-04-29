@@ -1,5 +1,5 @@
 <?php
-require_once('../wp-load.php');
+require_once(ABSPATH .'wp-load.php');
 include 'class/size.php';
 
 /**
@@ -45,67 +45,40 @@ function slice_pizza_dashboard(){
  * Size
  */
 function slice_pizza_size(){
-    
-    ?>    
-    <div class="wrap">
- 
-        <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-
-        <form method="post" action="<?php echo esc_html( admin_url( 'admin-post.php' ) ); ?>">
-
-            <div id="universal-message-container">
-                <h2>Add New Size</h2>
-
-                <div class="options">
-                    <p>
-                        <label>Enter the pizza size in numbers..</label>
-                        <br />
-                        <input type="text" name="title" value="" />
-                    </p>
-            </div><!-- #universal-message-container -->
-
-            <input type="hidden" name="action" value="contact_form">
-        
-            <?php               
-                submit_button();
-            ?>
-
-        </form>
-
-    </div><!-- .wrap -->
-    <?php
-
-    $PizzaSize_List = new PizzaSize_List_Table();
-    $PizzaSize_List->prepare_items();
-    ?>
-        <div class="wrap">            
-            <h2>Pizza Size List</h2>
-            <form method="post">
-            <?php $PizzaSize_List->display(); ?>
-            </form>
-        </div>
-    <?php
+    include 'class/size/main.php';
 }
 
-function prefix_send_email_to_admin() {
-    /**
-     * At this point, $_GET/$_POST variable are available
-     *
-     * We can do our normal processing here
-     */ 
+function save_pizza_size() { 
     
     global $wpdb;
     $title = $_POST['title'];
+    $id = $_POST['id'];
     $table_name = $wpdb->prefix . "pizza_attributes";
-    $wpdb->insert($table_name, array('title' => $title, 'att_type' => 'size'));
-    add_flash_notice( __("Success, new pizza size succesfully added."), "success", false );
-    wp_redirect(wp_get_referer());
-    // Sanitize the POST field
-    // Generate email content
-    // Send to appropriate email
+    if(empty($title))
+    {
+        add_flash_notice( __("Error, enter the valid pizza size."), "error", false );
+        wp_redirect(wp_get_referer()); 
+        exit;
+    }
+    if(empty($id))
+    {
+        $wpdb->insert($table_name, array('title' => $title, 'att_type' => 'size'));
+        add_flash_notice( __("Success, new pizza size succesfully added."), "success", false );
+        wp_redirect(wp_get_referer()); 
+        exit;
+    }
+    else
+    {
+        $wpdb->update($table_name, array('title' => $title), array('ID'=>$id));
+        add_flash_notice( __("Success, pizza size succesfully updated."), "success", false );
+        wp_redirect(wp_get_referer()); 
+        exit;
+    }
+
+       
 }
-add_action( 'admin_post_nopriv_contact_form', 'prefix_send_email_to_admin' );
-add_action( 'admin_post_contact_form', 'prefix_send_email_to_admin' );
+add_action( 'admin_post_nopriv_save_pizza_size', 'save_pizza_size' );
+add_action( 'admin_post_save_pizza_size', 'save_pizza_size' );
 
 
 /**
